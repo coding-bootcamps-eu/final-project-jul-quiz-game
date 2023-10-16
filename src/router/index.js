@@ -1,11 +1,17 @@
 import { createRouter, createWebHistory } from "vue-router";
 import EntryView from "../views/EntryView.vue";
+import QuizView from "../views/QuizView.vue";
 
 const routes = [
   {
     path: "/",
     name: "entry",
     component: EntryView,
+  },
+  {
+    path: "/quiz",
+    name: "quiz",
+    component: QuizView,
   },
 ];
 
