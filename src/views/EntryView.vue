@@ -1,5 +1,7 @@
 <template>
   <div class="container">
+    <ConfigComponent />
+
     <ul v-for="group of groups" :key="group.id">
       <li>{{ group.title }}: {{ group.id }}</li>
     </ul>
@@ -7,6 +9,8 @@
 </template>
 
 <script>
+import ConfigComponent from "@/components/ConfigComponent.vue";
+
 export default {
   data() {
     return {
@@ -28,5 +32,6 @@ export default {
   mounted() {
     this.getGroups();
   },
+  components: { ConfigComponent },
 };
 </script>
