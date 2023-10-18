@@ -1,22 +1,87 @@
 <template>
-  <section class="container">
+  <section
+    v-if="quizStore.questions.length > 0 && quizStore.questions.length > qi"
+    class="container"
+  >
+    <div>{{ quizStore.questions.length }}</div>
+    <div>{{ qi }}</div>
+    <div>{{ quizStore.Qanswers }}</div>
+    <hr />
+
+    <p class="category">{{ quizStore.questions[qi].groupName }}</p>
     <div class="question-card">
-      <h3>This is a question?</h3>
+      <h3>{{ quizStore.questions[qi].question }}</h3>
     </div>
-    <div class="answer-container">
-      <button class="card">This is an answer</button>
-      <button class="card">This is an answer</button>
-      <button class="card">This is an answer</button>
-      <button class="card">This is an answer</button>
+    <div
+      class="answer-container"
+      v-for="answer of quizStore.questions[qi].answers"
+      :key="answer.id"
+    >
+      <input
+        type="checkbox"
+        :id="answer.id"
+        :value="answer.id"
+        @change="updateQanswers(answer.id)"
+      />
+      <label :for="answer.id" class="checkbox-button">{{ answer.text }}</label>
     </div>
+    <button @click="nextQuestion" class="card next">Next</button>
   </section>
+  <div v-if="qi >= quizStore.questions.length">
+    <p>Du hast es geschafft</p>
+    <RouterLink to="/">Noch mal versuchen?</RouterLink>
+    <Routerlink to="/result">Zur Auswertung</Routerlink>
+  </div>
 </template>
 
 <script>
-export default {};
+import { useQuizStore } from "../stores/QuizStore";
+import { mapStores } from "pinia";
+export default {
+  data() {
+    return {
+      qi: 0,
+    };
+  },
+  computed: {
+    ...mapStores(useQuizStore),
+  },
+  methods: {
+    nextQuestion() {
+      this.qi++;
+      document
+        .querySelectorAll('input[type="checkbox"]')
+        .forEach((checkbox) => {
+          checkbox.checked = false;
+        });
+    },
+    updateQanswers(selectedID) {
+      if (this.quizStore.Qanswers[this.qi]) {
+        this.quizStore.Qanswers[this.qi].selected.push(selectedID);
+      } else {
+        this.quizStore.Qanswers.push({
+          id: this.quizStore.questions[this.qi].id,
+          selected: [],
+        });
+        this.quizStore.Qanswers[this.qi].selected.push(selectedID);
+      }
+    },
+  },
+};
 </script>
-
-<style>
+<style lang="scss" scoped>
+.next {
+  cursor: pointer;
+  margin-top: 20px;
+}
+.container {
+  display: flex;
+  flex-direction: column;
+}
+.category {
+  color: white;
+  align-self: center;
+}
 .question-card {
   text-align: center;
   margin: 1rem 0 1rem 0;
@@ -26,14 +91,41 @@ export default {};
   background-color: rgba(255, 255, 255, 0.58);
   border-radius: 12px;
   border: 1px solid rgba(209, 213, 219, 0.3);
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
+    rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
+    rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
 }
-.card {
+.question-card h3 {
+  text-shadow: 1px 2px 4px rgba(0, 0, 0, 0.41);
+}
+.answer-container {
+  margin-bottom: 0.5rem;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  border-radius: 12px;
+}
+
+/* standardmäßige Checkbox */
+input[type="checkbox"] {
+  display: none;
+}
+/* Label als Button */
+.checkbox-button {
+  color: white;
+  text-align: center;
+  width: 100%;
   font-size: 1rem;
-  padding: 0.5rem 1rem;
   backdrop-filter: blur(21px) saturate(172%);
   -webkit-backdrop-filter: blur(21px) saturate(172%);
   background-color: rgba(163, 175, 245, 0.8);
   border-radius: 12px;
-  border: 1px solid rgba(209, 213, 219, 0.3);
+  display: inline-block;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  text-shadow: 1px 2px 4px rgba(0, 0, 0, 0.41);
+}
+
+input[type="checkbox"]:checked + label.checkbox-button {
+  background-color: #2a2a2ac6;
 }
 </style>
