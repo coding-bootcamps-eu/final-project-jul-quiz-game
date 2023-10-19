@@ -3,12 +3,11 @@
     v-if="quizStore.questions.length > 0 && quizStore.questions.length > qi"
     class="container"
   >
-    <div>{{ quizStore.questions.length }}</div>
-    <div>{{ qi }}</div>
-    <div>{{ quizStore.Qanswers }}</div>
-    <hr />
-
-    <p class="category">{{ quizStore.questions[qi].groupName }}</p>
+    <p class="category">
+      {{ quizStore.questions[qi].groupName }} | Frage {{ qi + 1 }}/{{
+        quizStore.questions.length
+      }}
+    </p>
     <div class="question-card">
       <h3>{{ quizStore.questions[qi].question }}</h3>
     </div>
@@ -21,26 +20,30 @@
         type="checkbox"
         :id="answer.id"
         :value="answer.id"
-        @change="updateQanswers(answer.id)"
+        v-model="selectedAnswers"
       />
       <label :for="answer.id" class="checkbox-button">{{ answer.text }}</label>
     </div>
-    <button @click="nextQuestion" class="card next">Next</button>
+    <button
+      v-if="qi >= quizStore.questions.length - 1"
+      class="card"
+      @click="getResult"
+    >
+      Auswertung
+    </button>
+    <button v-else @click="nextQuestion" class="card next">Next</button>
   </section>
-  <div v-if="qi >= quizStore.questions.length">
-    <p>Du hast es geschafft</p>
-    <RouterLink to="/">Noch mal versuchen?</RouterLink>
-    <Routerlink to="/result">Zur Auswertung</Routerlink>
-  </div>
 </template>
 
 <script>
+import router from "@/router";
 import { useQuizStore } from "../stores/QuizStore";
 import { mapStores } from "pinia";
 export default {
   data() {
     return {
       qi: 0,
+      selectedAnswers: [],
     };
   },
   computed: {
@@ -48,6 +51,11 @@ export default {
   },
   methods: {
     nextQuestion() {
+      this.quizStore.Qanswers.push({
+        id: this.quizStore.questions[this.qi].id,
+        selected: this.selectedAnswers,
+      });
+      this.selectedAnswers = [];
       this.qi++;
       document
         .querySelectorAll('input[type="checkbox"]')
@@ -55,16 +63,8 @@ export default {
           checkbox.checked = false;
         });
     },
-    updateQanswers(selectedID) {
-      if (this.quizStore.Qanswers[this.qi]) {
-        this.quizStore.Qanswers[this.qi].selected.push(selectedID);
-      } else {
-        this.quizStore.Qanswers.push({
-          id: this.quizStore.questions[this.qi].id,
-          selected: [],
-        });
-        this.quizStore.Qanswers[this.qi].selected.push(selectedID);
-      }
+    getResult() {
+      this.nextQuestion(), router.push("/result");
     },
   },
 };

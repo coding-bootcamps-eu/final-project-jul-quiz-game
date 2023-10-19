@@ -2,15 +2,16 @@
   <main class="main">
     <section>
       <div class="checkbox-section">
-        <p>Choose a quiz by topic</p>
+        <p>Wähle eine oder mehrere Kategorien</p>
       </div>
-      <div class="checkbox-container">
-        <input type="checkbox" />
-        <label for="checkbox" class="checkbox-button">Basic JavaScript</label>
-      </div>
-      <div class="checkbox-container">
-        <input type="checkbox" id="checkbox" />
-        <label for="checkbox" class="checkbox-button">Basic HTML CSS</label>
+      <div class="checkbox-container" v-for="group of groups" :key="group.id">
+        <input
+          :id="group.id"
+          type="checkbox"
+          :value="group.id"
+          v-model="selectedGroups"
+        />
+        <label :for="group.id" class="checkbox-button">{{ group.title }}</label>
       </div>
     </section>
     <section>
@@ -20,15 +21,52 @@
           <option class="form-container-items" value="20">20 questions</option>
           <option class="form-container-items" value="15">15 questions</option>
           <option class="form-container-items" value="10">10 questions</option>
-          <option class="form-container-items" value="15">5 questions</option>
+          <option class="form-container-items" value="5">5 questions</option>
         </select>
       </div>
     </section>
     <section>
-      <button class="btn-start">Start</button>
+      <button @click="startfetch" class="btn-start">Start</button>
     </section>
   </main>
 </template>
+
+<script>
+import router from "@/router";
+import { useQuizStore } from "../stores/QuizStore";
+import { mapStores } from "pinia";
+
+export default {
+  data() {
+    return {
+      quantity: 20,
+      groups: [],
+      selectedGroups: [],
+    };
+  },
+  computed: {
+    ...mapStores(useQuizStore),
+  },
+  methods: {
+    async startfetch() {
+      await this.quizStore.getQuestions(this.quantity, this.selectedGroups);
+      await router.push("/quiz");
+    },
+    async getGroups() {
+      try {
+        const response = await fetch("http://localhost:3000/groups");
+        const data = await response.json();
+        this.groups.push(...data);
+      } catch (err) {
+        console.log(err);
+      }
+    },
+  },
+  mounted() {
+    this.getGroups();
+  },
+};
+</script>
 
 <style>
 .main > * + * {
@@ -92,13 +130,3 @@ input[type="checkbox"]:checked + label.checkbox-button {
   background-color: #4464ad;
 }
 </style>
-
-<script>
-export default {
-  data() {
-    return {
-      quantity: 20,
-    };
-  },
-};
-</script>
