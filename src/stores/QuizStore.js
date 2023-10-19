@@ -5,6 +5,8 @@ export const useQuizStore = defineStore("quiz", {
   state: () => ({
     questions: [],
     Qanswers: [],
+    elapsedTime: 10,
+    Qresults: {},
   }),
   getters: {},
   actions: {
@@ -18,6 +20,26 @@ export const useQuizStore = defineStore("quiz", {
         const response = await fetch(`${url}limit=${limit}&random=1`);
         const { data } = await response.json();
         this.questions.push(...data);
+      } catch (err) {
+        console.log(err);
+      }
+    },
+    async getResults() {
+      const answers = {
+        elapsedTime: this.elapsedTime,
+        data: this.Qanswers,
+      };
+      try {
+        const response = await fetch("http://localhost:3000/quiz/result", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(answers),
+        });
+        const result = await response.json();
+        console.log(result);
+        this.Qresults = result;
       } catch (err) {
         console.log(err);
       }
