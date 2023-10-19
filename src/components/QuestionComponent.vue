@@ -66,20 +66,6 @@ export default {
     getResult() {
       this.nextQuestion(), router.push("/result");
     },
-    /*
-    updateQanswers() {
-      
-      if (this.quizStore.Qanswers[this.qi]) {
-        this.quizStore.Qanswers[this.qi].selected.push(selectedID);
-      } else {
-        this.quizStore.Qanswers.push({
-          id: this.quizStore.questions[this.qi].id,
-          selected: [],
-        });
-        this.quizStore.Qanswers[this.qi].selected.push(selectedID);
-      }
-    },
-    */
   },
 };
 </script>
