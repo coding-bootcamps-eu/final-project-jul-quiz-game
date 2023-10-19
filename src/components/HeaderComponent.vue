@@ -2,7 +2,6 @@
   <header class="header">
     <section class="header-section">
       <p>Quiz Game<span>💡</span></p>
-      <nav class="header-navigation"></nav>
     </section>
   </header>
 </template>
