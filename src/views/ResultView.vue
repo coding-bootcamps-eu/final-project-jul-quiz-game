@@ -3,6 +3,7 @@
     <div class="result-container">
       <h2>Dein Ergebnis</h2>
       <p>benötigte Zeit: {{ quizElapsedTime }} Sekunden</p>
+      <button class="card" @click="resetGame()">erneut versuchen</button>
       <h3>Überblick</h3>
       <div class="answer-container">
         <div
@@ -27,6 +28,7 @@
 </template>
 
 <script>
+import router from "@/router";
 import { useQuizStore } from "../stores/QuizStore";
 import { mapStores } from "pinia";
 export default {
@@ -58,6 +60,11 @@ export default {
   },
   created() {
     this.quizStore.getResults();
+  },
+  methods: {
+    resetGame() {
+      router.push("/");
+    },
   },
 };
 </script>
