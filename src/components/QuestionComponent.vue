@@ -27,7 +27,9 @@
         :value="answer.id"
         v-model="selectedAnswers"
       />
-      <label :for="answer.id" class="checkbox-button">{{ answer.text }}</label>
+      <label :for="answer.id" class="checkbox-button">{{
+        decode(answer.text)
+      }}</label>
     </div>
     <button
       v-if="qi >= quizStore.questions.length - 1"
@@ -41,6 +43,7 @@
 </template>
 
 <script>
+import he from "he/he.js";
 import router from "@/router";
 import { useQuizStore } from "../stores/QuizStore";
 import { mapStores } from "pinia";
@@ -65,6 +68,9 @@ export default {
     },
   },
   methods: {
+    decode(text) {
+      return he.decode(text);
+    },
     nextQuestion() {
       this.quizStore.Qanswers.push({
         id: this.quizStore.questions[this.qi].id,
