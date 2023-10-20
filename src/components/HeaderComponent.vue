@@ -3,6 +3,12 @@
     <section class="header-section">
       <p>Quiz Game<span>💡</span></p>
     </section>
+    <section>
+      <nav class="nav-section">
+        <router-link to="/">Home</router-link>
+        <router-link to="/admin">Admin</router-link>
+      </nav>
+    </section>
   </header>
 </template>
 
@@ -21,5 +27,11 @@ export default {};
 .header-section {
   padding: 10px 10px;
   font-size: 1.5rem;
+}
+
+.nav-section {
+  display: flex;
+  column-gap: 5px;
+  margin-left: 8px;
 }
 </style>
