@@ -7,7 +7,10 @@
     </div>
     <div class="result-container" v-if="seeDetails">
       <h2>Dein Ergebnis</h2>
-      <p>benötigte Zeit: {{ quizElapsedTime }} Sekunden</p>
+      <p>
+        benötigte Zeit:
+        {{ this.quizStore.formatTime(this.quizStore.elapsedTime) }}h
+      </p>
       <h3>Überblick</h3>
       <div class="answer-container">
         <div
