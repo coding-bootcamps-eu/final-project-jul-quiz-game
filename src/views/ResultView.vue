@@ -1,9 +1,13 @@
 <template>
   <div class="container">
-    <div class="result-container">
+    <div v-if="!seeDetails">
+      <CongratsComponent></CongratsComponent>
+      <button class="card" @click="resetGame">erneut versuchen</button>
+      <button class="card" @click="toggleDetails">Details</button>
+    </div>
+    <div class="result-container" v-if="seeDetails">
       <h2>Dein Ergebnis</h2>
       <p>benötigte Zeit: {{ quizElapsedTime }} Sekunden</p>
-      <button class="card" @click="resetGame()">erneut versuchen</button>
       <h3>Überblick</h3>
       <div class="answer-container">
         <div
@@ -29,13 +33,16 @@
 
 <script>
 import router from "@/router";
+import CongratsComponent from "@/components/CongratsComponent.vue";
 import { useQuizStore } from "../stores/QuizStore";
 import { mapStores } from "pinia";
 export default {
+  components: {
+    CongratsComponent,
+  },
   data() {
     return {
-      classValid: "valid",
-      classInvalid: "invalid",
+      seeDetails: false,
     };
   },
   computed: {
@@ -49,10 +56,6 @@ export default {
       const { details } = this.quizStore.Qresults;
       return details;
     },
-    quizPassedRatio() {
-      const { passedRatio } = this.quizStore.Qresults;
-      return passedRatio;
-    },
     quizResult() {
       const { result } = this.quizStore.Qresults;
       return result;
@@ -64,6 +67,9 @@ export default {
   methods: {
     resetGame() {
       router.push("/");
+    },
+    toggleDetails() {
+      this.seeDetails = !this.seeDetails;
     },
   },
 };

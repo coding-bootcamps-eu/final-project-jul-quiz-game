@@ -7,6 +7,7 @@ export const useQuizStore = defineStore("quiz", {
     Qanswers: [],
     elapsedTime: 10,
     Qresults: {},
+    ratio: 0,
   }),
   getters: {},
   actions: {
@@ -39,6 +40,9 @@ export const useQuizStore = defineStore("quiz", {
         });
         const result = await response.json();
         console.log(result);
+        const { passedRatio } = result;
+        this.ratio = parseFloat(passedRatio.replace("%", ""));
+
         this.Qresults = result;
       } catch (err) {
         console.log(err);

@@ -1,24 +1,27 @@
 <template>
   <main class="main">
-    <section>
-      <div class="congrats-container">
-        <p>Your answers were <strong>100 % </strong>correct</p>
-        <p>(I am very much impressed)</p>
-      </div>
-      <div class="congrats-container">
-        <p>Your answers were <strong>50% to 99% </strong>correct</p>
-        <p>(I am very impressed)</p>
-      </div>
-      <div class="congrats-container">
-        <p>Your answers were <strong>less than 50% </strong>correct</p>
-        <p>(I am encouraging you neverless)</p>
-      </div>
-    </section>
-    <section>
-      <RouterLink to="/">Noch mal versuchen?</RouterLink>
+    <section class="congrats-container">
+      <p>
+        Your answers were <strong>{{ quizStore.ratio }}%</strong> correct
+      </p>
+      <p v-if="quizStore.ratio == 100">I am very much impressed</p>
+      <p v-else-if="quizStore.ratio > 50 && quizStore.ratio < 99">
+        I am very impressed
+      </p>
+      <p v-else-if="quizStore.ratio < 50">I am encouraging you neverless</p>
     </section>
   </main>
 </template>
+<script>
+import { useQuizStore } from "../stores/QuizStore";
+import { mapStores } from "pinia";
+
+export default {
+  computed: {
+    ...mapStores(useQuizStore),
+  },
+};
+</script>
 
 <style>
 .main > * + * {
@@ -40,7 +43,3 @@
   border: 1px solid rgba(209, 213, 219, 0.3);
 }
 </style>
-
-<script>
-export default {};
-</script>
