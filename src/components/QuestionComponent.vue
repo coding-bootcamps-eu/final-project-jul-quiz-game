@@ -8,6 +8,11 @@
         quizStore.questions.length
       }}
     </p>
+    <div>
+      <div class="progress-bar">
+        <div class="progress-fill" :style="progressStyle"></div>
+      </div>
+    </div>
     <div class="question-card">
       <h3>{{ quizStore.questions[qi].question }}</h3>
     </div>
@@ -48,6 +53,16 @@ export default {
   },
   computed: {
     ...mapStores(useQuizStore),
+
+    progress() {
+      const totalQuestions = this.quizStore.questions.length;
+      return (this.qi / totalQuestions) * 100;
+    },
+    progressStyle() {
+      return {
+        width: this.progress + "%",
+      };
+    },
   },
   methods: {
     nextQuestion() {
@@ -70,6 +85,17 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+.progress-bar {
+  width: 100%;
+  background-color: #ffffff;
+  height: 20px;
+}
+
+.progress-fill {
+  height: 100%;
+  background-color: #a3aff5;
+  transition: width 0.5s;
+}
 .next {
   cursor: pointer;
   margin-top: 20px;
