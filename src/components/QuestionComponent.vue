@@ -68,6 +68,14 @@ export default {
     },
   },
   methods: {
+    startTimer() {
+      this.interval = setInterval(() => {
+        this.quizStore.elapsedTime += 1;
+      }, 1000);
+    },
+    stopTimer() {
+      clearInterval(this.interval);
+    },
     decode(text) {
       return he.decode(text);
     },
@@ -87,6 +95,12 @@ export default {
     getResult() {
       this.nextQuestion(), router.push("/result");
     },
+  },
+  created() {
+    this.startTimer();
+  },
+  beforeUnmount() {
+    this.stopTimer();
   },
 };
 </script>

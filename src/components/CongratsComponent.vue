@@ -4,6 +4,10 @@
       <p>
         Your answers were <strong>{{ quizStore.ratio }}%</strong> correct
       </p>
+      <p>
+        benötigte Zeit:
+        {{ this.quizStore.formatTime(this.quizStore.elapsedTime) }}h
+      </p>
       <p v-if="quizStore.ratio == 100">I am very much impressed</p>
       <p v-else-if="quizStore.ratio > 50 && quizStore.ratio < 99">
         I am very impressed

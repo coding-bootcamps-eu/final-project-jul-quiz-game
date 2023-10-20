@@ -5,7 +5,7 @@ export const useQuizStore = defineStore("quiz", {
   state: () => ({
     questions: [],
     Qanswers: [],
-    elapsedTime: 10,
+    elapsedTime: 0,
     Qresults: {},
     ratio: 0,
   }),
@@ -47,6 +47,15 @@ export const useQuizStore = defineStore("quiz", {
       } catch (err) {
         console.log(err);
       }
+    },
+    formatTime(seconds) {
+      const hours = Math.floor(seconds / 3600);
+      const minutes = Math.floor((seconds % 3600) / 60);
+      const remainingSeconds = seconds % 60;
+      return `${String(hours).padStart(2, "0")}:${String(minutes).padStart(
+        2,
+        "0"
+      )}:${String(remainingSeconds).padStart(2, "0")}`;
     },
   },
 });
