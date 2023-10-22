@@ -1,18 +1,30 @@
 <template>
   <main class="main">
+    <section class="container">
+      <img alt="summary illustration" class="summary-svg" :src="summarySvg" />
+    </section>
     <section class="congrats-container">
-      <p>
-        Your answers were <strong>{{ quizStore.ratio }}%</strong> correct
+      <div class="congrats-content">
+        <h2>Resume</h2>
+        <p>
+          Your answers were <strong>{{ quizStore.ratio }}%</strong> correct
+        </p>
+        <p>
+          Time needed:
+          <strong
+            >{{ this.quizStore.formatTime(this.quizStore.elapsedTime) }}
+          </strong>
+        </p>
+      </div>
+      <p v-if="quizStore.ratio == 100">
+        You have cracked the game. Impressive! 👌🏽
       </p>
-      <p>
-        benötigte Zeit:
-        {{ this.quizStore.formatTime(this.quizStore.elapsedTime) }}h
-      </p>
-      <p v-if="quizStore.ratio == 100">I am very much impressed</p>
       <p v-else-if="quizStore.ratio > 50 && quizStore.ratio < 99">
-        I am very impressed
+        Not bad, not bad at all! 💪🏽
       </p>
-      <p v-else-if="quizStore.ratio < 50">I am encouraging you neverless</p>
+      <p v-else-if="quizStore.ratio < 50">
+        Practice makes perfect. Hang on! 🫶🏽
+      </p>
     </section>
   </main>
 </template>
@@ -24,15 +36,43 @@ export default {
   computed: {
     ...mapStores(useQuizStore),
   },
+
+  data() {
+    return {
+      summarySvg: require("@/assets/illustrations/summary.svg"),
+    };
+  },
 };
 </script>
 
-<style>
+<style lang="scss" scoped>
+.summary-svg {
+  max-width: 18rem;
+  padding: 0.5rem 1rem;
+  margin-top: 8px;
+}
 .main > * + * {
   margin-bottom: 1rem;
 }
 
+h2 {
+  margin-bottom: 1rem;
+}
+
 .congrats-container {
+  margin-top: 1.5rem;
+  margin-bottom: 2rem;
+  text-align: center;
+  display: grid;
+}
+
+.congrats-content {
+  padding: 10px 5px;
+  background-color: #ffbe33;
+  margin-bottom: 0.5rem;
+}
+
+.congrats-items {
   margin-bottom: 1rem;
 }
 

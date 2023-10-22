@@ -1,37 +1,49 @@
 <template>
   <header class="header">
-    <section class="header-section">
-      <p>Quiz Game<span>💡</span></p>
-    </section>
-    <section>
-      <nav class="nav-section">
-        <router-link to="/">Home</router-link>
-        <router-link to="/admin">Admin</router-link>
-      </nav>
-    </section>
+    <div class="header-section">
+      <img
+        @click="loadURL"
+        alt="header logo"
+        class="header-logo"
+        :src="headerLogo"
+      />
+    </div>
   </header>
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      headerLogo: require("@/assets/illustrations/header.svg"),
+    };
+  },
+  methods: {
+    loadURL() {
+      this.$router = [];
+      this.$router.push("http://localhost:8080/");
+    },
+  },
+};
 </script>
 
-<style>
+<style lang="scss" scoped>
+.header-logo {
+  max-width: 5rem;
+}
 .header {
   backdrop-filter: blur(21px) saturate(172%);
   -webkit-backdrop-filter: blur(21px) saturate(172%);
-  background-color: rgba(163, 175, 245, 0.8);
-  margin-bottom: 20px;
-  padding: 10px 10px;
-}
-.header-section {
-  padding: 10px 10px;
-  font-size: 1.5rem;
+  background-color: #a3aff5;
+  padding: 8px 8px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: center;
 }
 
-.nav-section {
-  display: flex;
-  column-gap: 5px;
-  margin-left: 8px;
+.header-logo {
+  width: 10rem;
+  cursor: pointer;
 }
 </style>

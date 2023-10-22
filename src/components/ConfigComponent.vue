@@ -1,34 +1,51 @@
 <template>
-  <main class="main">
-    <section>
-      <div class="">
-        <h2>Choose a category</h2>
-      </div>
-      <div class="" v-for="group of groups" :key="group.id">
-        <input
-          :id="group.id"
-          type="checkbox"
-          :value="group.id"
-          v-model="selectedGroups"
+  <body>
+    <main class="main">
+      <section class="container">
+        <img
+          alt="start illustration"
+          class="searching-svg"
+          :src="searchingSvg"
         />
-        <label :for="group.id" class="btn">{{ group.title }}</label>
-      </div>
-    </section>
-    <section>
-      <h2>Choose a quiz by length</h2>
-      <div class="form-container">
-        <select v-model="quantity" class="form-container-items btn">
-          <option class="form-container-items" value="20">20 questions</option>
-          <option class="form-container-items" value="15">15 questions</option>
-          <option class="form-container-items" value="10">10 questions</option>
-          <option class="form-container-items" value="5">5 questions</option>
-        </select>
-      </div>
-    </section>
-    <section>
-      <button @click="startfetch" class="btn-start">start the game</button>
-    </section>
-  </main>
+      </section>
+      <section class="container">
+        <div>
+          <h2>Choose a quiz category</h2>
+        </div>
+        <div class="form-container" v-for="group of groups" :key="group.id">
+          <input
+            :id="group.id"
+            type="checkbox"
+            :value="group.id"
+            v-model="selectedGroups"
+          />
+          <label :for="group.id" class="btn">{{ group.title }}</label>
+        </div>
+      </section>
+      <h3>OR</h3>
+
+      <section class="container">
+        <h2>Choose a quiz by length</h2>
+        <div class="form-container">
+          <select v-model="quantity" class="form-container-items btn">
+            <option class="form-container-items" value="20">
+              20 questions
+            </option>
+            <option class="form-container-items" value="15">
+              15 questions
+            </option>
+            <option class="form-container-items" value="10">
+              10 questions
+            </option>
+            <option class="form-container-items" value="5">5 questions</option>
+          </select>
+        </div>
+      </section>
+      <section>
+        <button @click="startfetch" class="btn-start">Start the game</button>
+      </section>
+    </main>
+  </body>
 </template>
 
 <script>
@@ -39,6 +56,7 @@ import { mapStores } from "pinia";
 export default {
   data() {
     return {
+      searchingSvg: require("@/assets/illustrations/searching.svg"),
       quantity: 20,
       groups: [],
       selectedGroups: [],
@@ -71,7 +89,23 @@ export default {
 <style>
 .main > * + * {
   margin-top: 1.5rem;
-  margin-bottom: 2.5rem;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+h2 {
+  text-shadow: 1px 2px 4px rgba(0, 0, 0, 0.41);
+}
+
+.container {
+  display: grid;
+  justify-content: center;
+}
+
+.searching-svg {
+  max-width: 18rem;
+  padding: 0.5rem 1rem;
+  margin-top: 8px;
 }
 
 input[type="checkbox"] {
@@ -89,11 +123,17 @@ input[type="checkbox"]:checked + label.btn {
 
 .form-container {
   margin-top: 0.5rem;
+  display: grid;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
+    rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
+    rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
 }
 
-.form-container-item {
+.form-container-items {
   padding: 0.5rem 1rem;
+  grid-template-columns: 100px;
 }
+
 .btn-start {
   font-size: 1.2rem;
   margin: 5px;
@@ -104,5 +144,18 @@ input[type="checkbox"]:checked + label.btn {
   border-radius: 5px;
   cursor: pointer;
   border-style: none;
+  text-shadow: 1px 2px 4px rgba(0, 0, 0, 0.41);
+}
+
+@media screen and (min-width: 786px) {
+  html {
+    font-size: 18px;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  html {
+    font-size: 20px;
+  }
 }
 </style>
