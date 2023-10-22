@@ -97,12 +97,12 @@ input[type="checkbox"]:checked + label.btn {
 .btn-start {
   font-size: 1.2rem;
   margin: 5px;
-  background-color: #4464ad;
+  background-color: #ffbe33;
   font-family: Poppins, sans-serif;
   color: white;
   padding: 0.5rem 1rem;
   border-radius: 5px;
-  border-style: none;
   cursor: pointer;
+  border-style: none;
 }
 </style>

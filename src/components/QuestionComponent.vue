@@ -33,12 +33,12 @@
     </div>
     <button
       v-if="qi >= quizStore.questions.length - 1"
-      class="card"
+      class="btn"
       @click="getResult"
     >
       Auswertung
     </button>
-    <button v-else @click="nextQuestion" class="card next">Next</button>
+    <button v-else @click="nextQuestion" class="btn next">Next</button>
   </section>
 </template>
 
@@ -107,14 +107,16 @@ export default {
 <style lang="scss" scoped>
 .progress-bar {
   width: 100%;
-  background-color: #ffffff;
+  background-color: #a3aff5;
   height: 20px;
+  border-radius: 5px;
 }
 
 .progress-fill {
   height: 100%;
-  background-color: #a3aff5;
+  background-color: #ffbe33;
   transition: width 0.5s;
+  border-radius: 5px;
 }
 .next {
   cursor: pointer;
@@ -125,16 +127,15 @@ export default {
   flex-direction: column;
 }
 .category {
-  color: white;
+  color: #4464ad;
   align-self: center;
 }
 .question-card {
   text-align: center;
   margin: 1rem 0 1rem 0;
   padding: 0.5rem 1rem;
-  backdrop-filter: blur(21px) saturate(172%);
-  -webkit-backdrop-filter: blur(21px) saturate(172%);
-  background-color: rgba(255, 255, 255, 0.58);
+  background-color: #ffbe33;
+  color: white;
   border-radius: 12px;
   border: 1px solid rgba(209, 213, 219, 0.3);
   box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
@@ -147,7 +148,7 @@ export default {
 .answer-container {
   margin-bottom: 0.5rem;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-  border-radius: 12px;
+  border-radius: 5px;
 }
 
 /* standardmäßige Checkbox */
@@ -162,8 +163,8 @@ input[type="checkbox"] {
   font-size: 1rem;
   backdrop-filter: blur(21px) saturate(172%);
   -webkit-backdrop-filter: blur(21px) saturate(172%);
-  background-color: rgba(163, 175, 245, 0.8);
-  border-radius: 12px;
+  background-color: #a3aff5;
+  border-radius: 5px;
   display: inline-block;
   padding: 10px 20px;
   border: none;
@@ -172,6 +173,6 @@ input[type="checkbox"] {
 }
 
 input[type="checkbox"]:checked + label.checkbox-button {
-  background-color: #2a2a2ac6;
+  background-color: #4464ad;
 }
 </style>

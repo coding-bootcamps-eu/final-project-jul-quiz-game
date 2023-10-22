@@ -2,8 +2,8 @@
   <div class="container">
     <div v-if="!seeDetails">
       <CongratsComponent></CongratsComponent>
-      <button class="card" @click="resetGame">erneut versuchen</button>
-      <button class="card" @click="toggleDetails">Details</button>
+      <button class="btn" @click="resetGame">erneut versuchen</button>
+      <button class="btn" @click="toggleDetails">Details</button>
     </div>
     <div class="result-container" v-if="seeDetails">
       <h2>Dein Ergebnis</h2>
@@ -18,14 +18,16 @@
           v-for="detail of quizDetails"
           :key="detail.id"
         >
-          <h4>{{ detail.question }}</h4>
+          <h3 class="answer-question">{{ decode(detail.question) }}</h3>
           <p>Deine Antworten: {{ detail.selectedAnswers }}</p>
           <div
             v-for="answerDetail of detail.answerDetails"
             :key="answerDetail.id"
+            :class="answerDetail.isValid ? 'valid' : 'invalid'"
           >
-            <p :class="answerDetail.isValid ? 'valid' : 'invalid'">
-              <span>{{ answerDetail.id }}:</span> {{ answerDetail.text }}
+            <p>
+              <span>{{ answerDetail.id }}:</span>
+              {{ decode(answerDetail.text) }}
             </p>
           </div>
         </div>
@@ -35,6 +37,7 @@
 </template>
 
 <script>
+import he from "he/he.js";
 import router from "@/router";
 import CongratsComponent from "@/components/CongratsComponent.vue";
 import { useQuizStore } from "../stores/QuizStore";
@@ -68,6 +71,9 @@ export default {
     this.quizStore.getResults();
   },
   methods: {
+    decode(text) {
+      return he.decode(text);
+    },
     resetGame() {
       router.push("/");
     },
@@ -80,9 +86,21 @@ export default {
 
 <style lang="scss" scoped>
 .valid {
-  background-color: rgb(49, 103, 49);
+  background-color: #ffbe33;
+  padding: 0.5rem 0.5rem;
 }
 .invalid {
-  background-color: rgb(218, 90, 90);
+  background-color: #a3aff5;
+  padding: 0 0.5rem;
+}
+.answer-details {
+  margin-bottom: 1rem;
+  color: white;
+  padding: 1rem;
+  border-radius: 5px;
+  background-color: #4464ad;
+}
+.answer-question {
+  color: white;
 }
 </style>
