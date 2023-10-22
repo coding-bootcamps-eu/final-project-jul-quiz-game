@@ -1,23 +1,23 @@
 <template>
   <main class="main">
     <section>
-      <div class="checkbox-section">
-        <p>Wähle eine oder mehrere Kategorien</p>
+      <div class="">
+        <h2>Choose a category</h2>
       </div>
-      <div class="checkbox-container" v-for="group of groups" :key="group.id">
+      <div class="" v-for="group of groups" :key="group.id">
         <input
           :id="group.id"
           type="checkbox"
           :value="group.id"
           v-model="selectedGroups"
         />
-        <label :for="group.id" class="checkbox-button">{{ group.title }}</label>
+        <label :for="group.id" class="btn">{{ group.title }}</label>
       </div>
     </section>
     <section>
-      <p>Choose a quiz by length</p>
+      <h2>Choose a quiz by length</h2>
       <div class="form-container">
-        <select v-model="quantity" class="form-container-items">
+        <select v-model="quantity" class="form-container-items btn">
           <option class="form-container-items" value="20">20 questions</option>
           <option class="form-container-items" value="15">15 questions</option>
           <option class="form-container-items" value="10">10 questions</option>
@@ -26,7 +26,7 @@
       </div>
     </section>
     <section>
-      <button @click="startfetch" class="btn-start">Start</button>
+      <button @click="startfetch" class="btn-start">start the game</button>
     </section>
   </main>
 </template>
@@ -78,55 +78,31 @@ input[type="checkbox"] {
   display: none;
 }
 
-label.checkbox-button {
+label.btn {
   margin-top: 0.5rem;
   display: inline-block;
-  cursor: pointer;
-  font-size: 1rem;
-  padding: 0.5rem 1rem;
-  backdrop-filter: blur(21px) saturate(172%);
-  -webkit-backdrop-filter: blur(21px) saturate(172%);
-  background-color: rgba(163, 175, 245, 0.8);
-  border-radius: 12px;
-  border: 1px solid rgba(209, 213, 219, 0.3);
 }
 
-input[type="checkbox"]:checked + label.checkbox-button {
-  background-color: #4464ad;
+input[type="checkbox"]:checked + label.btn {
+  background-color: #ffbe33;
 }
 
 .form-container {
   margin-top: 0.5rem;
-  cursor: pointer;
 }
 
 .form-container-item {
   padding: 0.5rem 1rem;
 }
-
-.form-container-items {
-  padding: 0.5rem 1rem;
-  font-size: 1rem;
-  padding: 0.5rem 1rem;
-  backdrop-filter: blur(21px) saturate(172%);
-  -webkit-backdrop-filter: blur(21px) saturate(172%);
-  background-color: rgba(163, 175, 245, 0.8);
-  border-radius: 12px;
-  border: 1px solid rgba(209, 213, 219, 0.3);
-}
-
 .btn-start {
-  cursor: pointer;
-  font-size: 1rem;
+  font-size: 1.2rem;
+  margin: 5px;
+  background-color: #ffbe33;
+  font-family: Poppins, sans-serif;
+  color: white;
   padding: 0.5rem 1rem;
-  backdrop-filter: blur(21px) saturate(172%);
-  -webkit-backdrop-filter: blur(21px) saturate(172%);
-  background-color: rgba(163, 175, 245, 0.8);
-  border-radius: 12px;
-  border: 1px solid rgba(209, 213, 219, 0.3);
-}
-
-.btn-start:checked {
-  background-color: #4464ad;
+  border-radius: 5px;
+  cursor: pointer;
+  border-style: none;
 }
 </style>
