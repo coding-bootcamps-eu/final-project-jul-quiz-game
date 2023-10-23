@@ -89,11 +89,10 @@ export default {
 <style lang="scss" scoped>
 h2,
 h3 {
-  margin-top: 0.5rem;
-  margin-bottom: 0.5rem;
+  margin-top: 1rem;
 }
 .h {
-  margin-top: 0.5rem;
+  margin-top: 1rem;
 }
 
 .result-container {
@@ -106,11 +105,15 @@ h3 {
 }
 .valid {
   background-color: #ffbe33;
-  padding: 0.5rem 0.5rem;
+  padding: 0 0.5rem;
+  border-radius: 5px;
+  margin-bottom: 0.5rem;
 }
 .invalid {
   background-color: #a3aff5;
   padding: 0 0.5rem;
+  border-radius: 5px;
+  margin-bottom: 0.5rem;
 }
 
 .your-answers {

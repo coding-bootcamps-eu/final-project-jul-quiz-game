@@ -70,6 +70,7 @@ h2 {
   padding: 10px 5px;
   background-color: #ffbe33;
   margin-bottom: 0.5rem;
+  border-radius: 5px;
 }
 
 .congrats-items {

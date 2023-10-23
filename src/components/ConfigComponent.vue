@@ -23,7 +23,6 @@
         </div>
       </section>
       <h3>OR</h3>
-
       <section class="container">
         <h2>Choose a quiz by length</h2>
         <div class="form-container">
@@ -72,7 +71,9 @@ export default {
     },
     async getGroups() {
       try {
-        const response = await fetch("http://localhost:3000/groups");
+        const response = await fetch(
+          "https://23-juli-quiz-game-app.api.cbe.uber.space/groups"
+        );
         const data = await response.json();
         this.groups.push(...data);
       } catch (err) {
@@ -87,6 +88,10 @@ export default {
 </script>
 
 <style>
+.line-1 {
+  height: 1px;
+  background: black;
+}
 .main > * + * {
   margin-top: 1.5rem;
   margin-bottom: 2rem;
@@ -124,9 +129,6 @@ input[type="checkbox"]:checked + label.btn {
 .form-container {
   margin-top: 0.5rem;
   display: grid;
-  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
-    rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
-    rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
 }
 
 .form-container-items {
@@ -145,8 +147,11 @@ input[type="checkbox"]:checked + label.btn {
   cursor: pointer;
   border-style: none;
   text-shadow: 1px 2px 4px rgba(0, 0, 0, 0.41);
+  transition: transform 0.2s;
 }
-
+.btn-start:hover {
+  transform: scale(1.2);
+}
 @media screen and (min-width: 786px) {
   html {
     font-size: 18px;

@@ -25,6 +25,7 @@ body {
 }
 .container {
   padding: 0 1rem 0 1rem;
+  margin-top: 3rem;
 }
 
 .btn {
@@ -38,4 +39,8 @@ body {
   border-style: none;
   cursor: pointer;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  transition: transform 0.2s;
+}
+.btn:hover {
+  transform: scale(1.1);
 }
