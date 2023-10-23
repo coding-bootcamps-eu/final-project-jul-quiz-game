@@ -14,7 +14,7 @@
       </div>
     </div>
     <div class="question-card">
-      <h3>{{ quizStore.questions[qi].question }}</h3>
+      <h3>{{ decode(quizStore.questions[qi].question) }}</h3>
     </div>
     <div
       class="answer-container"
@@ -122,9 +122,15 @@ export default {
   cursor: pointer;
   margin-top: 20px;
 }
-.container {
+@media screen and (min-width: 768px) {
+  section.container {
+    max-width: 50vw;
+  }
+}
+section.container {
   display: flex;
   flex-direction: column;
+  width: 80vw;
 }
 .category {
   color: #4464ad;
@@ -170,9 +176,13 @@ input[type="checkbox"] {
   border: none;
   cursor: pointer;
   text-shadow: 1px 2px 4px rgba(0, 0, 0, 0.41);
+  transition: transform 0.2s;
 }
 
 input[type="checkbox"]:checked + label.checkbox-button {
   background-color: #4464ad;
+}
+.checkbox-button:hover {
+  transform: scale(1.05);
 }
 </style>

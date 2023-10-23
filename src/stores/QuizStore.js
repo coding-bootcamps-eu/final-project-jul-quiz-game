@@ -14,7 +14,8 @@ export const useQuizStore = defineStore("quiz", {
     async getQuestions(limit, groupArray) {
       try {
         this.questions = []; //for reset function
-        let url = "http://localhost:3000/quiz/collection?";
+        let url =
+          "https://23-juli-quiz-game-app.api.cbe.uber.space/quiz/collection?";
         for (let i = 0; i < groupArray; i++) {
           url += "group=" + groupArray[i] + "&";
         }
@@ -31,13 +32,16 @@ export const useQuizStore = defineStore("quiz", {
         data: this.Qanswers,
       };
       try {
-        const response = await fetch("http://localhost:3000/quiz/result", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(answers),
-        });
+        const response = await fetch(
+          "https://23-juli-quiz-game-app.api.cbe.uber.space/quiz/result",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(answers),
+          }
+        );
         const result = await response.json();
         console.log(result);
         const { passedRatio } = result;
