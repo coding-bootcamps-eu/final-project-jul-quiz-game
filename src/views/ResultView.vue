@@ -1,17 +1,19 @@
 <template>
-  <div class="container">
-    <div v-if="!seeDetails">
+  <div>
+    <div v-if="!seeDetails" class="container">
       <CongratsComponent></CongratsComponent>
-      <button class="btn" @click="resetGame">erneut versuchen</button>
-      <button class="btn" @click="toggleDetails">Details</button>
+      <button class="btn" @click="resetGame">Try again</button>
+      <button class="btn" @click="toggleDetails">More details</button>
     </div>
     <div class="result-container" v-if="seeDetails">
-      <h2>Dein Ergebnis</h2>
+      <h2 class="h">Your result</h2>
       <p>
-        benötigte Zeit:
-        {{ this.quizStore.formatTime(this.quizStore.elapsedTime) }}h
+        Time needed:
+        <strong>{{
+          this.quizStore.formatTime(this.quizStore.elapsedTime)
+        }}</strong>
       </p>
-      <h3>Überblick</h3>
+      <h3 class="h">Overview</h3>
       <div class="answer-container">
         <div
           class="answer-details"
@@ -19,7 +21,7 @@
           :key="detail.id"
         >
           <h3 class="answer-question">{{ decode(detail.question) }}</h3>
-          <p>Deine Antworten: {{ detail.selectedAnswers }}</p>
+          <p class="your-answers">Your answers: {{ detail.selectedAnswers }}</p>
           <div
             v-for="answerDetail of detail.answerDetails"
             :key="answerDetail.id"
@@ -85,6 +87,23 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+h2,
+h3 {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+.h {
+  margin-top: 0.5rem;
+}
+
+.result-container {
+  text-align: center;
+  display: grid;
+}
+
+.answer-container {
+  padding: 5px 5px;
+}
 .valid {
   background-color: #ffbe33;
   padding: 0.5rem 0.5rem;
@@ -93,8 +112,13 @@ export default {
   background-color: #a3aff5;
   padding: 0 0.5rem;
 }
+
+.your-answers {
+  margin-bottom: 0.5rem;
+}
+
 .answer-details {
-  margin-bottom: 1rem;
+  margin-top: 0.5rem;
   color: white;
   padding: 1rem;
   border-radius: 5px;
@@ -102,5 +126,20 @@ export default {
 }
 .answer-question {
   color: white;
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.container {
+  display: grid;
+  align-items: center;
+}
+.btn {
+  grid-template-columns: 100%;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
+    rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
+    rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
 }
 </style>

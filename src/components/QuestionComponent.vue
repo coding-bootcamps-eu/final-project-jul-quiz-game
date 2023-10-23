@@ -4,7 +4,7 @@
     class="container"
   >
     <p class="category">
-      {{ quizStore.questions[qi].groupName }} | Frage {{ qi + 1 }}/{{
+      {{ quizStore.questions[qi].groupName }} | Question {{ qi + 1 }}/{{
         quizStore.questions.length
       }}
     </p>
